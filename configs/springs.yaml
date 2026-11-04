@@ -1,0 +1,73 @@
+springs:
+  - id: durovis_0.9x6.1x21
+    description: durovis spring d = 0.9 mm, D_e = 6.1 mm, L_0 = 21 mm, stainless steel
+    material: stainless steel
+    wire_diameter_m: 0.9e-3
+    external_diameter_m: 6.1e-3
+    free_length_m: 21e-3
+    max_length_m: 40e-3
+    max_extension_m: 12.5e-3
+    tension_at_rest_n: 0.8
+    maximum_load_n: 21.88
+    spring_constant_n_per_m: 1.75e3
+    count: 1
+  - id: sodemann_E03000491250M
+    description: Spring from Sodemann E03000491250M https://www.industrial-springs.com/e03000491250m; d = 1.24 mm, D_e = 7.62 mm, L_0 = 25 mm, music wire  
+    material: music wire
+    wire_diameter_m: 1.24e-3
+    external_diameter_m: 7.62e-3
+    free_length_m: 31.75e-3
+    max_length_m: 42.42e-3
+    max_extension_m: 10.67e-3
+    tension_at_rest_n: 6.23
+    maximum_load_n: 69.39
+    spring_constant_n_per_m: 5.94e3
+    count: 1
+  - id: sodemann_E02400411250S
+    description: Spring from Sodemann E02400411250S https://www.industrial-springs.com/e02400411250s; d = 1.04 mm, D_e = 6.10 mm, L_0 = 31.75 mm, stainless steel
+    material: stainless steel 302
+    wire_diameter_m: 1.04e-3
+    external_diameter_m: 6.10e-3
+    free_length_m: 31.75e-3
+    max_length_m: 42.67e-3
+    max_extension_m: 10.92e-3
+    tension_at_rest_n: 3.89
+    maximum_load_n: 43.17
+    spring_constant_n_per_m: 3.57e3
+    count: 1
+  - id: sodemann_E03600551250M
+    description: Spring from Sodemann E03600551250M https://www.industrial-springs.com/e03600551250m; d = 1.40 mm, D_e = 9.14 mm, L_0 = 31.75 mm, music wire
+    material: music wire
+    wire_diameter_m: 1.40e-3
+    external_diameter_m: 9.14e-3
+    free_length_m: 31.75e-3
+    max_length_m: 42.16e-3
+    max_extension_m: 10.41e-3
+    tension_at_rest_n: 7.12
+    maximum_load_n: 78.29
+    spring_constant_n_per_m: 6.76e3
+    count: 1
+  - id: sodemann_31570
+    description: Spring from Sodemann 31570 https://www.industrial-springs.com/31570; d = 1.00 mm, D_e = 7.00 mm, L_0 = 19.00 mm, music wire
+    material: music wire
+    wire_diameter_m: 1.00e-3
+    external_diameter_m: 7.00e-3
+    free_length_m: 19.00e-3
+    max_length_m: 27.17e-3
+    max_extension_m: 8.17e-3
+    tension_at_rest_n: 6.82
+    maximum_load_n: 45.30
+    spring_constant_n_per_m: 4.71e3
+    count: 1
+  - id: sodemann_41570-316
+    description: Spring from Sodemann 41570-316 https://www.sodemann-federn.de/41570-316; d = 1.00 mm, D_e = 7.00 mm, L_0 = 19.00 mm, stainless steel 316
+    material: stainless steel 316
+    wire_diameter_m: 1.00e-3
+    external_diameter_m: 7.00e-3
+    free_length_m: 19.00e-3
+    max_length_m: 27.17e-3
+    max_extension_m: 8.17e-3
+    tension_at_rest_n: 5.67
+    maximum_load_n: 37.70
+    spring_constant_n_per_m: 3.92e3
+    count: 1

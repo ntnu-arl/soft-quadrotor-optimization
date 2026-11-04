@@ -1,0 +1,5 @@
+.git
+external
+cache
+c_generated_code*
+acados_ocp_quadrotor*

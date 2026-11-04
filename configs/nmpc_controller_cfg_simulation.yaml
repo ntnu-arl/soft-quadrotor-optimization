@@ -1,0 +1,60 @@
+nmpc:
+  N: 20
+  nmpc_dt: 0.025
+  Q_pos: [1.0, 20.0, 8.0]
+  Q_vel: [1.0, 20.0, 4.0]
+  Q_acc: [1.0e-9, 1.0e-9, 1.0e-9]
+  Q_att: [4.0, 4.0, 1.0]
+  Q_omega: [2.0, 2.0, 0.5]
+  R: 0.12
+  R_delta_u: 25.0
+  terminal_factor: 1.0
+  motor_rps_min: 160.0
+  recovery:
+    Q_pos: [1.01, 1.01, 45.0]
+    Q_vel: [5.20, 5.05, 25.0]
+    Q_acc: [1.0e-9, 1.0e-9, 1.0e-9]
+    Q_att: [5.0, 5.0, 0.25]
+    Q_omega: [1.0, 1.0, 0.25]
+    R: 0.12
+    R_delta_u: 25.0
+    terminal_factor: 3.0
+
+trajectory:
+  active: collision
+  circle:
+    peak_velocity: 1.0
+    max_acceleration: 1.0
+    trajectory_diameter_x: 2.0
+    hold_before_s: 5.0
+    hold_after_s: 10.0
+    repeat_count: 1
+
+  collision:
+    gap_ref1_mm: [1867.4, 190.0, 1342.0]
+    gap_ref2_mm: [1866.0, 393.96, 1339.1]
+    setpoints:
+      - position_rel_gap: [-2.0, 0.0, 1.05]
+        velocity: [0.0, 0.0, 0.0]
+        setpoint_time: 0.5
+        waypoint_x_limit_rel_gap: null
+        control_mode: NMPC_DIRECT_ACTUATOR
+        nmpc_mode: NMPC_FLIGHT_MODE
+      - position_rel_gap: [0.25, 0.0, 1.05]
+        velocity: [2.1, 0.0, 0.0]
+        setpoint_time: null
+        waypoint_x_limit_rel_gap: 0.0
+        control_mode: NMPC_DIRECT_ACTUATOR
+        nmpc_mode: NMPC_FLIGHT_MODE
+      - position_rel_gap: [1.0, 0.0, 1.05]
+        velocity: [0.0, 0.0, 0.0]
+        setpoint_time: 3.0
+        waypoint_x_limit_rel_gap: null
+        control_mode: NMPC_DIRECT_ACTUATOR
+        nmpc_mode: NMPC_RECOVERY_MODE
+      - position_rel_gap: [1.0, 0.0, 1.05]
+        velocity: [0.0, 0.0, 0.0]
+        setpoint_time: 60.0
+        waypoint_x_limit_rel_gap: null
+        control_mode: NMPC_DIRECT_ACTUATOR
+        nmpc_mode: NMPC_FLIGHT_MODE

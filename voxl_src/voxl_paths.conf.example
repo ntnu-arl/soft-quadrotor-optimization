@@ -1,0 +1,17 @@
+# Copy this file to:
+#   results/voxl_paths.conf
+#
+# Keep values as plain KEY=value entries so both shell scripts and Makefile.voxl
+# can load the same local configuration.
+
+# Path to the local voxl-px4 checkout that contains build_firmware.sh.
+VOXL_PX4_REPO=/home/your-user/path/to/voxl_px4
+
+# Optional override. If omitted, flash_firmware.sh derives it from VOXL_PX4_REPO.
+# PX4_FIRMWARE_DIR=/home/your-user/path/to/voxl_px4/voxl-px4-dev/px4-firmware
+
+# Optional override. Defaults to voxl_src/acados.
+# ACADOS_SOURCE_DIR=/home/your-user/path/to/acados
+
+# Optional override. Defaults to $ACADOS_SOURCE_DIR/build_aarch64.
+# ACADOS_BUILD_DIR=/home/your-user/path/to/acados/build_aarch64

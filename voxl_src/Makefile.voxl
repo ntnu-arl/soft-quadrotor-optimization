@@ -1,0 +1,103 @@
+CC = aarch64-linux-gnu-gcc
+
+MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+LOCAL_CONFIG ?= $(if $(VOXL_LOCAL_CONFIG_PATH),$(VOXL_LOCAL_CONFIG_PATH),$(abspath $(MAKEFILE_DIR)/../results/voxl_paths.conf))
+-include $(LOCAL_CONFIG)
+
+ACADOS_SRC ?= $(if $(ACADOS_SOURCE_DIR),$(ACADOS_SOURCE_DIR),$(MAKEFILE_DIR)/acados)
+ACADOS_BUILD ?= $(if $(ACADOS_BUILD_DIR),$(ACADOS_BUILD_DIR),$(ACADOS_SRC)/build_aarch64)
+CODEGEN = ../c_generated_code
+CODEGEN_RECOVERY = ../c_generated_code_recovery
+
+INCLUDE_PATH = $(ACADOS_SRC)/include
+LIB_PATH = $(ACADOS_BUILD)/lib
+
+CFLAGS = -std=c99 -O2
+CPPFLAGS = -I$(INCLUDE_PATH) \
+           -I$(INCLUDE_PATH)/acados \
+           -I$(INCLUDE_PATH)/blasfeo/include \
+           -I$(INCLUDE_PATH)/hpipm/include \
+           -I$(CODEGEN) \
+           -I$(CODEGEN_RECOVERY) \
+           -I.
+
+LDFLAGS = -L$(ACADOS_BUILD)/acados -L$(ACADOS_BUILD)/external/blasfeo -L$(ACADOS_BUILD)/external/hpipm
+LDLIBS = -lacados -lhpipm -lblasfeo -lm -lrt
+
+MODEL_SRC = $(CODEGEN)/quadrotor_nmpc_model/quadrotor_nmpc_expl_ode_fun.c \
+            $(CODEGEN)/quadrotor_nmpc_model/quadrotor_nmpc_expl_vde_forw.c \
+            $(CODEGEN)/quadrotor_nmpc_model/quadrotor_nmpc_expl_vde_adj.c
+
+COST_SRC = $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_0_fun.c \
+           $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_0_fun_jac_ut_xt.c \
+           $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_0_hess.c \
+           $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_fun.c \
+           $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_fun_jac_ut_xt.c \
+           $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_hess.c \
+           $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_e_fun.c \
+           $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_e_fun_jac_ut_xt.c \
+           $(CODEGEN)/quadrotor_nmpc_cost/quadrotor_nmpc_cost_y_e_hess.c
+
+SOLVER_SRC = $(CODEGEN)/acados_solver_quadrotor_nmpc.c
+
+RECOVERY_MODEL_SRC = $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_model/quadrotor_nmpc_recovery_expl_ode_fun.c \
+                     $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_model/quadrotor_nmpc_recovery_expl_vde_forw.c \
+                     $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_model/quadrotor_nmpc_recovery_expl_vde_adj.c
+
+RECOVERY_COST_SRC = $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_0_fun.c \
+                    $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_0_fun_jac_ut_xt.c \
+                    $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_0_hess.c \
+                    $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_fun.c \
+                    $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_fun_jac_ut_xt.c \
+                    $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_hess.c \
+                    $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_e_fun.c \
+                    $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_e_fun_jac_ut_xt.c \
+                    $(CODEGEN_RECOVERY)/quadrotor_nmpc_recovery_cost/quadrotor_nmpc_recovery_cost_y_e_hess.c
+
+RECOVERY_SOLVER_SRC = $(CODEGEN_RECOVERY)/acados_solver_quadrotor_nmpc_recovery.c
+
+UDP_SRC = $(MODEL_SRC) $(COST_SRC) $(SOLVER_SRC) nmpc_udp_solver.c
+UDP_OBJ = $(UDP_SRC:.c=.o)
+
+PIPE_SRC = $(MODEL_SRC) $(COST_SRC) $(SOLVER_SRC) $(RECOVERY_MODEL_SRC) $(RECOVERY_COST_SRC) $(RECOVERY_SOLVER_SRC) nmpc_pipe_solver.c
+PIPE_OBJ = $(PIPE_SRC:.c=.o)
+
+MOTOR_TEST_SRC = motor_test_sender.c
+MOTOR_TEST_OBJ = $(MOTOR_TEST_SRC:.c=.o)
+SIMPLE_MOTOR_TEST_SRC = single_motor_test_sender.c
+SIMPLE_MOTOR_TEST_OBJ = $(SIMPLE_MOTOR_TEST_SRC:.c=.o)
+
+UDP_TARGET  = nmpc_udp_solver
+PIPE_TARGET = nmpc_pipe_solver
+MOTOR_TEST_TARGET = motor_test_sender
+SIMPLE_MOTOR_TEST_TARGET = single_motor_test_sender
+
+.PHONY: all clean static pipe motor-test simple-motor-test
+
+all: static
+
+static: $(UDP_OBJ)
+	$(CC) -static $^ -o $(UDP_TARGET) $(LDFLAGS) $(LDLIBS)
+
+pipe: $(PIPE_OBJ)
+	$(CC) -static $^ -o $(PIPE_TARGET) $(LDFLAGS) $(LDLIBS) -lpthread
+
+motor-test: $(MOTOR_TEST_OBJ)
+	$(CC) -static $^ -o $(MOTOR_TEST_TARGET) -lm -lrt
+
+simple-motor-test: $(SIMPLE_MOTOR_TEST_OBJ)
+	$(CC) -static $^ -o $(SIMPLE_MOTOR_TEST_TARGET) -lm -lrt
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(UDP_OBJ) $(PIPE_OBJ) $(MOTOR_TEST_OBJ) $(SIMPLE_MOTOR_TEST_OBJ) $(UDP_TARGET) $(PIPE_TARGET) $(MOTOR_TEST_TARGET) $(SIMPLE_MOTOR_TEST_TARGET)
+
+deploy: $(UDP_TARGET)
+	adb push $(UDP_TARGET) /usr/local/bin/
+	adb shell chmod +x /usr/local/bin/$(UDP_TARGET)
+
+deploy-pipe: $(PIPE_TARGET)
+	adb push $(PIPE_TARGET) /usr/local/bin/
+	adb shell chmod +x /usr/local/bin/$(PIPE_TARGET)

@@ -1,0 +1,46 @@
+{
+  "data_npz": "results/dim_reduction_mask/vae_samples.npz",
+  "checkpoint_path": "results/dim_reduction_mask/best_model_weights.pth",
+  "latent_dim": 9,
+  "hidden_dimensions": [
+    256,
+    128,
+    64
+  ],
+  "train_fraction": 0.8,
+  "batch_size": 128,
+  "max_epochs": 500,
+  "patience": 50,
+  "learning_rate": 0.001,
+  "beta": 0.0001,
+  "min_improvement": 1e-08,
+  "seed": 42,
+  "device": "cpu",
+  "num_dataloader_workers": 0,
+  "n_total_samples": 20000,
+  "n_valid_samples": 20000,
+  "n_train_samples": 16000,
+  "n_val_samples": 4000,
+  "canonicalization_motor_self_rotation_param_groups": [
+    [
+      "front_prop_rotation_x",
+      "front_prop_rotation_y",
+      "front_prop_rotation_z"
+    ],
+    [
+      "back_prop_rotation_x",
+      "back_prop_rotation_y",
+      "back_prop_rotation_z"
+    ],
+    [
+      "side_motor_rotation_x_left",
+      "side_motor_rotation_y_left",
+      "side_motor_rotation_z_left"
+    ],
+    [
+      "side_motor_rotation_x_right",
+      "side_motor_rotation_y_right",
+      "side_motor_rotation_z_right"
+    ]
+  ]
+}

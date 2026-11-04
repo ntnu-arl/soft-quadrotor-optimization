@@ -1,0 +1,49 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.vscode/
+.idea/
+
+external/
+cache/*
+!cache/workspace_local/
+cache/workspace_local/*
+!cache/workspace_local/.gitkeep
+
+results/*
+!results/dim_reduction_mask/
+results/dim_reduction_mask/*
+!results/dim_reduction_mask/best_model_weights.pth
+!results/dim_reduction_mask/training_config.json
+!results/behaviour_based_nmpc_cma_es/
+results/behaviour_based_nmpc_cma_es/*
+!results/behaviour_based_nmpc_cma_es/behaviour_*/
+results/behaviour_based_nmpc_cma_es/behaviour_*/*
+!results/behaviour_based_nmpc_cma_es/behaviour_*/best_solution.json
+!results/behaviour_based_nmpc_cma_es/behaviour_*/run_config.json
+!results/behaviour_based_nmpc_cma_es/behaviour_*/best_job_config.json
+results/voxl_paths.conf
+
+# Generated acados solvers
+c_generated_code*/
+acados_ocp_quadrotor*.json
+acados_ocp_quadrotor*.lock
+
+# Real-world build outputs
+voxl_src/acados/
+voxl_src/*.o
+voxl_src/motor_test_sender
+voxl_src/nmpc_pipe_solver
+voxl_src/nmpc_udp_solver
+
+# Editors and operating system
+.DS_Store
+.claude/
+*.swp
+
+# Generated at run time
+temp_metrics_frames/
+/*.log
+/*.mp4
+/*.pdf

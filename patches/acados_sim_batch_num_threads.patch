@@ -1,0 +1,13 @@
+diff --git a/interfaces/acados_template/acados_template/c_templates_tera/acados_sim_solver.in.c b/interfaces/acados_template/acados_template/c_templates_tera/acados_sim_solver.in.c
+index da74762b9..31e905c8f 100644
+--- a/interfaces/acados_template/acados_template/c_templates_tera/acados_sim_solver.in.c
++++ b/interfaces/acados_template/acados_template/c_templates_tera/acados_sim_solver.in.c
+@@ -470,7 +470,7 @@ void {{ model.name }}_acados_sim_batch_solve({{ model.name }}_sim_solver_capsule
+     int num_threads_bkp;
+     if (num_threads_in_batch_solve > 1){
+         num_threads_bkp = omp_get_num_threads();
+-        omp_set_num_threads({{ solver_options.num_threads_in_batch_solve }});
++        omp_set_num_threads(num_threads_in_batch_solve);
+     }
+ 
+     #pragma omp parallel for

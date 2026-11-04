@@ -1,0 +1,54 @@
+simulator:
+  dt: 0.002
+  gravity: [0.0, 0.0, -9.81]
+  motor_model: "first_order"
+  revolute_joint_damping_coeff: 0.0025
+  env_spacing: 6.0
+
+environment:
+  action_decimation: 5
+  episode_length_s: 2.75
+  num_obs: 16
+  num_actions: 4
+  termination_max_misalignment_x: 179.998
+  termination_max_misalignment_y: 179.998
+  termination_max_misalignment_z: 120.001
+  success_target_distance: 0.6
+  success_target_velocity: 0.25
+  max_arm_angle_success: 3.0
+  success_max_velocity_to_get_potential_reward: 4.0
+  min_gap_width: 0.15
+  max_gap_width: 0.25
+  crash_lower_bound: [-2.5, -1.0, 0.5]
+  crash_upper_bound: [2.5, 1.0, 2.0]
+  x_close_to_zero_zone_min: -0.2
+  x_close_to_zero_zone_max: 0.1
+  x_close_to_zero_zone_min_forward_velocity: 0.5
+  x_close_to_zero_zone_termination_max_misalignment_x: 30.001
+  x_close_to_zero_zone_termination_max_misalignment_y: 30.001
+  x_close_to_zero_zone_termination_max_misalignment_z: 30.001
+
+observation_noise:
+  observation_noise: false
+  noise_current_position_episode: [0.005, 0.005, 0.005]
+  noise_current_position_timestep: [0.001, 0.001, 0.001]
+  noise_velocity_episode: [0.0, 0.0, 0.0]
+  noise_velocity_timestep: [0.025, 0.025, 0.025]
+  noise_orientation_euler_deg_episode: [0.5, 0.5, 1.0]
+  noise_orientation_euler_deg_timestep: [0.05, 0.05, 0.1]
+  noise_angvel_rad_episode: [0.005, 0.005, 0.005]
+  noise_angvel_rad_timestep: [0.0125, 0.0125, 0.0125]
+
+initial_state:
+  initial_position_min: [-2.05, -0.05, 1.00]
+  initial_position_max: [-1.95, 0.05, 1.10]
+  initial_orientation_euler_min: [-0.05, -0.05, -0.05]
+  initial_orientation_euler_max: [0.05, 0.05, 0.05]
+  initial_linvel_min: [-0.05, -0.05, -0.05]
+  initial_linvel_max: [0.05, 0.05, 0.05]
+  initial_angvel_min: [-0.05, -0.05, -0.05]
+  initial_angvel_max: [0.05, 0.05, 0.05]
+  initial_motor_action_min: [0.3, 0.3, 0.3, 0.3]
+  initial_motor_action_max: [0.5, 0.5, 0.5, 0.5]
+  goal_position_min: [1.0, 0.0, 1.05]
+  goal_position_max: [1.0, 0.0, 1.05]

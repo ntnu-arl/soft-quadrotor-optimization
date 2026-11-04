@@ -1,0 +1,237 @@
+{
+  "algorithm": "SOBOL_BO_CMAES",
+  "experiment_name": "behaviour_erc_nmpc20260604_004258",
+  "results_dir": "results/behaviour_based_nmpc_cma_es/behaviour_erc_nmpc20260604_004258",
+  "population_size": 20,
+  "max_generations": 100,
+  "initial_sigma": 0.05,
+  "max_sigma": 0.05,
+  "limit_change_type": "clip_sigma",
+  "seed": 20260603,
+  "eval_seed": 43,
+  "num_envs_eval": 100,
+  "num_episodes": 1,
+  "device": "cuda:0",
+  "wall_gap_size_tuple": [
+    0.15,
+    0.25
+  ],
+  "param_names": [
+    "front_arm_length",
+    "front_prop_rotation_x",
+    "front_prop_rotation_y",
+    "front_prop_rotation_z",
+    "back_arm_length",
+    "back_prop_rotation_x",
+    "back_prop_rotation_y",
+    "back_prop_rotation_z",
+    "side_arm_seg2_length_left",
+    "side_arm_seg2_length_right",
+    "side_base_rotation_x_left",
+    "side_base_rotation_y_left",
+    "side_base_rotation_z_left",
+    "side_base_rotation_x_right",
+    "side_base_rotation_y_right",
+    "side_base_rotation_z_right",
+    "side_motor_rotation_x_left",
+    "side_motor_rotation_y_left",
+    "side_motor_rotation_z_left",
+    "side_motor_rotation_x_right",
+    "side_motor_rotation_y_right",
+    "side_motor_rotation_z_right",
+    "torque_response_a",
+    "torque_response_b",
+    "torque_response_c",
+    "torque_response_d"
+  ],
+  "algorithm_param_names": [
+    "airframe_latent_z_0",
+    "airframe_latent_z_1",
+    "airframe_latent_z_2",
+    "airframe_latent_z_3",
+    "airframe_latent_z_4",
+    "airframe_latent_z_5",
+    "airframe_latent_z_6",
+    "airframe_latent_z_7",
+    "airframe_latent_z_8",
+    "torque_response_a",
+    "torque_response_b",
+    "torque_response_c",
+    "torque_response_d"
+  ],
+  "algorithm_param_bounds": [
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ]
+  ],
+  "geometry_param_names": [
+    "front_arm_length",
+    "front_prop_rotation_x",
+    "front_prop_rotation_y",
+    "front_prop_rotation_z",
+    "back_arm_length",
+    "back_prop_rotation_x",
+    "back_prop_rotation_y",
+    "back_prop_rotation_z",
+    "side_arm_seg2_length_left",
+    "side_arm_seg2_length_right",
+    "side_base_rotation_x_left",
+    "side_base_rotation_y_left",
+    "side_base_rotation_z_left",
+    "side_base_rotation_x_right",
+    "side_base_rotation_y_right",
+    "side_base_rotation_z_right",
+    "side_motor_rotation_x_left",
+    "side_motor_rotation_y_left",
+    "side_motor_rotation_z_left",
+    "side_motor_rotation_x_right",
+    "side_motor_rotation_y_right",
+    "side_motor_rotation_z_right"
+  ],
+  "vae_source_checkpoint_path": "results/dim_reduction_mask/best_model_weights.pth",
+  "vae_checkpoint_path": "results/behaviour_based_nmpc_cma_es/behaviour_erc_nmpc20260604_004258/airframe_vae_model.pth",
+  "vae_latent_dim": 9,
+  "vae_input_dim": 22,
+  "vae_decode_latent_bounds": [
+    -3.0,
+    3.0
+  ],
+  "torque_response_param_bounds": {
+    "torque_response_a": [
+      0.001,
+      0.4
+    ],
+    "torque_response_b": [
+      0.01,
+      0.99
+    ],
+    "torque_response_c": [
+      0.0,
+      0.4
+    ],
+    "torque_response_d": [
+      0.0,
+      0.399
+    ]
+  },
+  "torque_response_collision_delta_deg": 0.1,
+  "torque_response_erc_n_grid": 1000,
+  "torque_response_erc_safety_factor": 1.1,
+  "torque_response_erc_max_torque_rmse_nm": 0.6,
+  "control_authority_repair_loss": 0.05,
+  "control_authority_repair_target_accel_ratios": {
+    "linear": 0.05,
+    "angular": 0.05
+  },
+  "control_authority_repair_minimum_arm_torque": 0.0,
+  "control_authority_repair_configuration": [
+    [
+      0.0,
+      0.0,
+      "+lin_z",
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      "free",
+      9.81,
+      "+ang_x",
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      "free",
+      9.81,
+      "-ang_x",
+      0.0,
+      0.0
+    ],
+    [
+      "free",
+      0.0,
+      9.81,
+      0.0,
+      "+ang_y",
+      0.0
+    ],
+    [
+      "free",
+      0.0,
+      9.81,
+      0.0,
+      "-ang_y",
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      "free",
+      0.0,
+      0.0,
+      "+ang_z"
+    ],
+    [
+      0.0,
+      0.0,
+      "free",
+      0.0,
+      0.0,
+      "-ang_z"
+    ]
+  ],
+  "n_evals_sobol": 50,
+  "n_evals_bo": 350,
+  "n_evals_cmaes": 400
+}
